@@ -2,8 +2,12 @@ package be.vdab.toysforboys.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import javax.persistence.Embedded;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -37,11 +43,15 @@ public class Order implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	private long version;
-	@Embedded
-	private Orderdetail orderdetail;
+	@ManyToMany
+	@JoinTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"), inverseJoinColumns = @JoinColumn(name = "productId"))
+	private Set<Product> producten = new LinkedHashSet<>();
+	@ElementCollection
+	@CollectionTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"))
+	private Set<Orderdetail> orderdetails;
 
 	public Order(LocalDate orderDate, LocalDate requiredDate, LocalDate shippedDate, String comments, Customer customer,
-			Status status, long version, Orderdetail orderdetail) {
+			Status status, long version) {
 		this.orderDate = orderDate;
 		this.requiredDate = requiredDate;
 		this.shippedDate = shippedDate;
@@ -49,7 +59,7 @@ public class Order implements Serializable {
 		setCustomer(customer);
 		this.status = status;
 		this.version = version;
-		this.orderdetail = orderdetail;
+		this.orderdetails = new LinkedHashSet<>();
 	}
 
 	protected Order() {
@@ -92,10 +102,25 @@ public class Order implements Serializable {
 		if (customer == null) {
 			throw new NullPointerException();
 		}
-		if (!customer.getOrders().contains(this)) {
-			customer.addOrder(this);
-		}
 		this.customer = customer;
+	}
+
+	public boolean add(Product product) {
+		return producten.add(product);
+	}
+
+	public boolean remove(Product product) {
+		return producten.remove(product);
+
+	}
+
+	public Set<Product> getProducten() {
+		return Collections.unmodifiableSet(producten);
+
+	}
+
+	public Set<Orderdetail> getOrderdetails() {
+		return Collections.unmodifiableSet(orderdetails);
 	}
 
 }

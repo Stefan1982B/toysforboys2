@@ -1,65 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><entities>
 	<entity>
-		<entity-name>be.vdab.toysforboys.entities.Country</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>128</entity-height>
-		<entity-X-Coordinate>473</entity-X-Coordinate>
-		<entity-Y-Coordinate>88</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
 		<entity-name>be.vdab.toysforboys.entities.Product</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>266</entity-height>
-		<entity-X-Coordinate>45</entity-X-Coordinate>
-		<entity-Y-Coordinate>283</entity-Y-Coordinate>
+		<entity-X-Coordinate>341</entity-X-Coordinate>
+		<entity-Y-Coordinate>396</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>be.vdab.toysforboys.valueobjects.Orderdetail</entity-name>
+		<entity-name>be.vdab.toysforboys.entities.Country</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>128</entity-height>
-		<entity-X-Coordinate>372</entity-X-Coordinate>
-		<entity-Y-Coordinate>340</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>be.vdab.toysforboys.entities.Customer</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>270</entity-X-Coordinate>
-		<entity-Y-Coordinate>105</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>be.vdab.toysforboys.valueobjects.Address</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>130</entity-height>
-		<entity-X-Coordinate>45</entity-X-Coordinate>
-		<entity-Y-Coordinate>110</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>be.vdab.toysforboys.entities.Order</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>266</entity-height>
-		<entity-X-Coordinate>620</entity-X-Coordinate>
-		<entity-Y-Coordinate>232</entity-Y-Coordinate>
+		<entity-X-Coordinate>700</entity-X-Coordinate>
+		<entity-Y-Coordinate>74</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -69,8 +25,52 @@
 		<entity-name>be.vdab.toysforboys.entities.Productline</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
+		<entity-X-Coordinate>110</entity-X-Coordinate>
+		<entity-Y-Coordinate>332</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>be.vdab.toysforboys.valueobjects.Orderdetail</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>128</entity-height>
+		<entity-X-Coordinate>720</entity-X-Coordinate>
+		<entity-Y-Coordinate>479</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>be.vdab.toysforboys.entities.Customer</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>186</entity-height>
 		<entity-X-Coordinate>270</entity-X-Coordinate>
-		<entity-Y-Coordinate>510</entity-Y-Coordinate>
+		<entity-Y-Coordinate>58</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>be.vdab.toysforboys.valueobjects.Address</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>130</entity-height>
+		<entity-X-Coordinate>40</entity-X-Coordinate>
+		<entity-Y-Coordinate>96</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>be.vdab.toysforboys.entities.Order</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>286</entity-height>
+		<entity-X-Coordinate>571</entity-X-Coordinate>
+		<entity-Y-Coordinate>180</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

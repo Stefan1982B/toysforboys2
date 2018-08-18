@@ -2,6 +2,9 @@ package be.vdab.toysforboys.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,7 +32,7 @@ public class Product implements Serializable {
 	private long quantityInOrder;
 	private BigDecimal buyPrice;
 	private long version;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "productlineId")
 	private Productline productline;
 
@@ -110,11 +114,12 @@ public class Product implements Serializable {
 	}
 
 	public void setProductline(Productline productline) {
-		if(productline == null) {
+		if (productline == null) {
 			throw new NullPointerException();
 		}
 		this.productline = productline;
 	}
+
 	
 	
 	

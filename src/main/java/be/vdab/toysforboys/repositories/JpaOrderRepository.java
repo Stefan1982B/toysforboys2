@@ -1,10 +1,12 @@
 package be.vdab.toysforboys.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
 import be.vdab.toysforboys.entities.Order;
+import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 class JpaOrderRepository implements OrderRepository {
 
@@ -18,5 +20,12 @@ class JpaOrderRepository implements OrderRepository {
 	public Optional<Order> read(long id) {
 		return Optional.ofNullable(manager.find(Order.class, id));
 	}
+
+	@Override
+	public List<Order> findAll() {
+		return manager.createNamedQuery("Order.findAll", Order.class)
+				.getResultList();
+	}
+	
 
 }
