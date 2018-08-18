@@ -1,0 +1,2 @@
+insert into customers(name, streetAndNumber, city, state, postalCode, countryId, version)
+values ('testCustomer', 'testStreet', 'testCity', 'testState', 'testPostalCode',(select id from countries where name = 'testCountry'), 1);
