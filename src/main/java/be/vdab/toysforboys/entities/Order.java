@@ -3,6 +3,7 @@ package be.vdab.toysforboys.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import be.vdab.toysforboys.enums.Status;
+import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @Entity
 @Table(name = "orders")
@@ -35,9 +37,11 @@ public class Order implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	private long version;
+	@Embedded
+	private Orderdetail orderdetail;
 
 	public Order(LocalDate orderDate, LocalDate requiredDate, LocalDate shippedDate, String comments, Customer customer,
-			Status status, long version) {
+			Status status, long version, Orderdetail orderdetail) {
 		this.orderDate = orderDate;
 		this.requiredDate = requiredDate;
 		this.shippedDate = shippedDate;
@@ -45,10 +49,11 @@ public class Order implements Serializable {
 		setCustomer(customer);
 		this.status = status;
 		this.version = version;
+		this.orderdetail = orderdetail;
 	}
-	
+
 	protected Order() {
-		
+
 	}
 
 	public long getId() {
@@ -87,7 +92,7 @@ public class Order implements Serializable {
 		if (customer == null) {
 			throw new NullPointerException();
 		}
-		if(! customer.getOrders().contains(this)) {
+		if (!customer.getOrders().contains(this)) {
 			customer.addOrder(this);
 		}
 		this.customer = customer;
