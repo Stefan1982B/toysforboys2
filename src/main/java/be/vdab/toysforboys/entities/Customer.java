@@ -84,7 +84,7 @@ public class Customer implements Serializable {
 		if (order == null) {
 			throw new NullPointerException();
 		}
-		boolean toegevoegd = orders.remove(order);
+		boolean toegevoegd = orders.add(order);
 		Customer oudeCustomer = order.getCustomer();
 		if(oudeCustomer != null && oudeCustomer != this) {
 			oudeCustomer.orders.remove(order);
@@ -93,7 +93,7 @@ public class Customer implements Serializable {
 			order.setCustomer(this);
 		}
 		
-		return orders.add(order);
+		return toegevoegd;
 	}
 	
 	public boolean removeOrder(Order order) {
