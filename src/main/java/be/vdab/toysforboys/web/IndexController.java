@@ -2,6 +2,7 @@ package be.vdab.toysforboys.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,16 @@ class IndexController {
 	@GetMapping
 	ModelAndView orders() {
 		return new ModelAndView(VIEW, "orders", orderService.findAllButCancelledAndShipped());
+	}
+	
+	private final static String REDIRECT_NA_DELETE = "redirect:/";
+
+	@PostMapping(params = "id")
+	ModelAndView setAsShipped(long[] id) {
+		if (id != null) {
+			order.setAsShipped(id);
+		}
+		return new ModelAndView(REDIRECT_NA_DELETE);
 	}
 
 }

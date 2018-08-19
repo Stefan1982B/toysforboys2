@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.assertj.core.util.Arrays;
 import org.springframework.stereotype.Repository;
 
 import be.vdab.toysforboys.entities.Order;
@@ -25,9 +26,13 @@ class JpaOrderRepository implements OrderRepository {
 
 	@Override
 	public List<Order> findAllButCancelledAndShipped() {
-		return manager.createNamedQuery("Order.findAllButCancelledAndShipped", Order.class)
-				.getResultList();
+		return manager.createNamedQuery("Order.findAllButCancelledAndShipped", Order.class).getResultList();
 	}
-	
+
+	@Override
+	public int setAsShipped(List<Long>ids) {
+		return manager.createNamedQuery("Order.setAsShipped")
+				.setParameter("ids", ids).executeUpdate();
+	}
 
 }

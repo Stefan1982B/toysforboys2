@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import be.vdab.toysforboys.entities.Order;
 import be.vdab.toysforboys.entities.Product;
 import be.vdab.toysforboys.entities.Productline;
+import be.vdab.toysforboys.enums.Status;
 import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @RunWith(SpringRunner.class)
@@ -46,6 +48,7 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 
 	private Product product;
 	private Productline productline;
+	private Status status;
 
 	@Before
 	public void Before() {
@@ -111,6 +114,16 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 			assertTrue(order.getId() >= vorigId);
 			vorigId = order.getId();
 		}
+	}
+
+	@Test
+	public void setAsShipped() {
+		List<Long> ids = new ArrayList<>();
+		ids.add(idVanTestOrder());
+		repository.setAsShipped(ids);
+		manager.flush();
+		Order order = repository.read(idVanTestOrder()).get();
+		assertEquals(status.SHIPPED, order.getStatus());
 	}
 
 }

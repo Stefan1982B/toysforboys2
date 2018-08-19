@@ -5,6 +5,9 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm     http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
 	version="2.1">
 	<named-query name='Order.findAllButCancelledAndShipped'>
-		<query> select o from Order o where o.status not in ('cancelled', 'shipped') order by o.id  </query>
+		<query> select o from Order o where o.status not in ('CANCELLED', 'SHIPPED') order by o.id  </query>
+	</named-query>
+		<named-query name='Order.setAsShipped'>
+		<query> Update Order o set o.status = 'SHIPPED' where o.id in (:ids) </query>
 	</named-query>
 </entity-mappings>
