@@ -105,11 +105,11 @@ public class Order implements Serializable {
 		this.customer = customer;
 	}
 
-	public boolean add(Product product) {
+	public boolean addProduct(Product product) {
 		return producten.add(product);
 	}
 
-	public boolean remove(Product product) {
+	public boolean removeProduct(Product product) {
 		return producten.remove(product);
 
 	}

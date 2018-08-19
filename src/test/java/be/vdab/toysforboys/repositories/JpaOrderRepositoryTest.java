@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringRunner;
 
 import be.vdab.toysforboys.entities.Order;
+import be.vdab.toysforboys.entities.Product;
+import be.vdab.toysforboys.entities.Productline;
 import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @RunWith(SpringRunner.class)
@@ -39,6 +43,16 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	private JpaOrderRepository repository;
 	@Autowired
 	private EntityManager manager;
+	
+	private Product product;
+	private Productline productline;
+	
+	@Before
+	public void Before() {
+		productline = new Productline("testProductline", "testDescription", 1);
+		product = new Product("testProduct", "testScale", "testDescription", 20, 5, BigDecimal.TEN, 1, productline);
+	}
+	
 
 	private static final String ORDERS = "orders";
 
@@ -47,13 +61,39 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
-	public void read() {
+	public void readOrder() {
 		Order order = repository.read(idVanTestOrder()).get();
 		assertEquals("testComment", order.getComments());
-		assertEquals("testCustomer", order.getCustomer().getName());   
-		Set<Orderdetail>orderdetails = order.getOrderdetails();
-		for(Orderdetail orderdetail : orderdetails) {
-			System.out.println(orderdetail.getPriceEach() + " " + orderdetail.getQuantityOrdered() + " " + orderdetail.getProduct().getQuantityInOrder());
+	}
+
+	@Test
+	public void readCustomerLazyLoaded() {
+		Order order = repository.read(idVanTestOrder()).get();
+		assertEquals("testCustomer", order.getCustomer().getName());
+	}
+	
+	@Test
+	public void readCountryLazyLoaded() {
+		Order order = repository.read(idVanTestOrder()).get();
+		assertEquals("testCustomer", order.getCustomer().getName());
+		assertEquals("testCountry", order.getCustomer().getCountry().getName());
+	}
+	
+	@Test
+	public void readAddress() {
+		Order order = repository.read(idVanTestOrder()).get();
+		assertEquals("testStreet", order.getCustomer().getAddress().getStreetAndNumber());
+		assertEquals("testCountry", order.getCustomer().getCountry().getName());
+	}
+
+	@Test
+	public void readOrderdetailsEnProductInfo() {
+		Order order = repository.read(idVanTestOrder()).get();
+		Set<Orderdetail> orderdetails = order.getOrderdetails();
+		assertTrue(orderdetails.contains(new Orderdetail( 5, BigDecimal.TEN, product)));
+		for (Orderdetail orderdetail : orderdetails) {
+			System.out.println(orderdetail.getPriceEach() + " " + orderdetail.getQuantityOrdered() + " "
+					+ orderdetail.getProduct().getQuantityInOrder());
 		}
 	}
 
@@ -73,4 +113,5 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 			vorigId = order.getId();
 		}
 	}
+
 }

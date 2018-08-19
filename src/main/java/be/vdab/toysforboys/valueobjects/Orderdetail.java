@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import be.vdab.toysforboys.entities.Order;
 import be.vdab.toysforboys.entities.Product;
 
 @Embeddable
@@ -21,9 +20,6 @@ public class Orderdetail implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "productId")
 	private Product product;
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JoinColumn(name = "orderId")
-//	private Order order;
 
 	public long getQuantityOrdered() {
 		return quantityOrdered;
@@ -33,11 +29,10 @@ public class Orderdetail implements Serializable {
 		return priceEach;
 	}
 
-	public Orderdetail(long quantityOrdered, BigDecimal priceEach, Product product/*, Order order*/) {
+	public Orderdetail(long quantityOrdered, BigDecimal priceEach, Product product) {
 		this.quantityOrdered = quantityOrdered;
 		this.priceEach = priceEach;
 		setProduct(product);
-//		setOrder(order);
 	}
 
 	protected Orderdetail() {
@@ -55,16 +50,29 @@ public class Orderdetail implements Serializable {
 		this.product = product;
 	}
 
-//	public Order getOrder() {
-//		return order;
-//	}
-//
-//	public void setOrder(Order order) {
-//		if (order == null) {
-//			throw new NullPointerException();
-//		}
-//		this.order = order;
-//	}
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Orderdetail))
+			return false;
+		Orderdetail other = (Orderdetail) obj;
+		if (product == null) {
+			if (other.product != null)
+				return false;
+		} else if (!product.equals(other.product))
+			return false;
+		return true;
+	}
 
 }
