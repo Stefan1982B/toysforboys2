@@ -9,15 +9,33 @@
 <link rel='stylesheet' href='<c:url value="/css/toysforboys.css"/>'>
 </head>
 <body>
-
 	<h1>Unshipped orders</h1>
-	<ul class = 'zebra'>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Ordered</th>
+			<th>Required</th>
+			<th>Customer</th>
+			<th>Comments</th>
+			<th>Status</th>
+			<th>Ship</th>
+		</tr>
 		<c:forEach var='order' items='${orders}'>
-			<spring:url var='url' value='/orders/{id}'>
-				<spring:param name='id' value='${order.id}' />
-			</spring:url>
-			<li><a href='${url}'>${order.id}</a> ${order.orderDate}${order.requiredDate}${order.customer.name}${order.comments}${order.status} </li>
+			<tr>
+				<td><spring:url var='url' value='/orders/{id}'>
+						<spring:param name='id' value='${order.id}' />
+					</spring:url><a href='${url}'>${order.id}</a></td>
+				<td>${order.orderDate}</td>
+				<td>${order.requiredDate}</td>
+				<td>${order.customer.name}</td>
+				<td>${order.comments}</td>
+				<td>${order.status}</td>
+				<td><input type='checkbox' name='shipped' value='${order.id}'></td>
+			</tr>
 		</c:forEach>
-	</ul>
+
+	</table>
+	<input type='submit' value='Set as Shipped' id='shippedKnop'>
+
 </body>
 </html>

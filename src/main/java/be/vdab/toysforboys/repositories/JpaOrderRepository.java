@@ -24,8 +24,8 @@ class JpaOrderRepository implements OrderRepository {
 	}
 
 	@Override
-	public List<Order> findAll() {
-		return manager.createNamedQuery("Order.findAll", Order.class)
+	public List<Order> findAllButCancelledAndShipped() {
+		return manager.createNamedQuery("Order.findAllButCancelledAndShipped", Order.class)
 				.getResultList();
 	}
 	

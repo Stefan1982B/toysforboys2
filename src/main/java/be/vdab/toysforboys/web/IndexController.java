@@ -20,7 +20,7 @@ class IndexController {
 	
 	@GetMapping
 	ModelAndView orders() {
-		return new ModelAndView(VIEW, "orders", orderService.findAll());
+		return new ModelAndView(VIEW, "orders", orderService.findAllButCancelledAndShipped());
 	}
 
 }

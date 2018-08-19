@@ -26,8 +26,8 @@ class DefaultOrderService implements OrderService{
 	}
 
 	@Override
-	public List<Order> findAll() {
-		return repository.findAll();
+	public List<Order> findAllButCancelledAndShipped() {
+		return repository.findAllButCancelledAndShipped();
 	}
 
 }

@@ -43,16 +43,15 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	private JpaOrderRepository repository;
 	@Autowired
 	private EntityManager manager;
-	
+
 	private Product product;
 	private Productline productline;
-	
+
 	@Before
 	public void Before() {
 		productline = new Productline("testProductline", "testDescription", 1);
 		product = new Product("testProduct", "testScale", "testDescription", 20, 5, BigDecimal.TEN, 1, productline);
 	}
-	
 
 	private static final String ORDERS = "orders";
 
@@ -71,14 +70,14 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 		Order order = repository.read(idVanTestOrder()).get();
 		assertEquals("testCustomer", order.getCustomer().getName());
 	}
-	
+
 	@Test
 	public void readCountryLazyLoaded() {
 		Order order = repository.read(idVanTestOrder()).get();
 		assertEquals("testCustomer", order.getCustomer().getName());
 		assertEquals("testCountry", order.getCustomer().getCountry().getName());
 	}
-	
+
 	@Test
 	public void readAddress() {
 		Order order = repository.read(idVanTestOrder()).get();
@@ -90,7 +89,7 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	public void readOrderdetailsEnProductInfo() {
 		Order order = repository.read(idVanTestOrder()).get();
 		Set<Orderdetail> orderdetails = order.getOrderdetails();
-		assertTrue(orderdetails.contains(new Orderdetail( 5, BigDecimal.TEN, product)));
+		assertTrue(orderdetails.contains(new Orderdetail(5, BigDecimal.TEN, product)));
 		for (Orderdetail orderdetail : orderdetails) {
 			System.out.println(orderdetail.getPriceEach() + " " + orderdetail.getQuantityOrdered() + " "
 					+ orderdetail.getProduct().getQuantityInOrder());
@@ -103,10 +102,10 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
-	public void findAll() {
-		List<Order> orders = repository.findAll();
+	public void findAllButCancelledAndShipped() {
+		List<Order> orders = repository.findAllButCancelledAndShipped();
 		manager.clear();
-		assertEquals(super.countRowsInTable(ORDERS), orders.size());
+		assertEquals(super.countRowsInTableWhere(ORDERS, "status not in ('cancelled','shipped')"), orders.size());
 		long vorigId = 0;
 		for (Order order : orders) {
 			assertTrue(order.getId() >= vorigId);
