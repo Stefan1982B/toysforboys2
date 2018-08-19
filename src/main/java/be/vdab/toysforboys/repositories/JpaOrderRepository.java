@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.stereotype.Repository;
+
 import be.vdab.toysforboys.entities.Order;
 
+@Repository
 class JpaOrderRepository implements OrderRepository {
 
 	private final EntityManager manager;
