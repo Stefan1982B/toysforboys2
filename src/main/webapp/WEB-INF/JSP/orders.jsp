@@ -11,19 +11,19 @@
 </head>
 <body>
 	<h1>Order ${order.id}</h1>
-	<h2>Ordered</h2>
-	<h5>${order.orderDate}</h5>
-	<h2>Required</h2>
-	<h5>${order.requiredDate}</h5>
-	<h2>Customer</h2>
-	<h5>${order.customer.name}</h5>
-	<h5>${order.customer.address.streetAndNumber}</h5>
-	<h5>${order.customer.address.postalCode}
-		${order.customer.address.city}</h5>
-	<h5>${order.customer.country.name}</h5>
-	<h2>Comments:</h2>
-	<h5>${order.comments}</h5>
-	<h2>Details:</h2>
+	<h5>Ordered</h5>
+	<h2>${order.orderDate}</h2>
+	<h5>Required</h5>
+	<h2>${order.requiredDate}</h2>
+	<h5>Customer</h5>
+	<h2>${order.customer.name}</h2>
+	<h2>${order.customer.address.streetAndNumber}</h2>
+	<h2>${order.customer.address.postalCode}
+		${order.customer.address.city}</h2>
+	<h2>${order.customer.country.name}</h2>
+	<h5>Comments:</h5>
+	<h2>${order.comments}</h2>
+	<h5>Details:</h5>
 	<table>
 		<tr>
 			<th>Product</th>

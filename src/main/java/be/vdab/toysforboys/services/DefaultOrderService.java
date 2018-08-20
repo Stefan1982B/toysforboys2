@@ -30,4 +30,10 @@ class DefaultOrderService implements OrderService{
 		return repository.findAllButCancelledAndShipped();
 	}
 
+	@Override
+	@Transactional(readOnly = false , isolation = Isolation.READ_COMMITTED) 
+	public int setAsShipped(Long[] ids) {
+		return repository.setAsShipped(ids);
+	}
+
 }

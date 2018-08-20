@@ -26,10 +26,10 @@ class IndexController {
 	
 	private final static String REDIRECT_NA_DELETE = "redirect:/";
 
-	@PostMapping(params = "id")
-	ModelAndView setAsShipped(long[] id) {
-		if (id != null) {
-			order.setAsShipped(id);
+	@PostMapping(params = "shippedId")
+	ModelAndView setAsShipped(Long[] shippedId) {
+		if (shippedId != null) {
+			orderService.setAsShipped(shippedId);
 		}
 		return new ModelAndView(REDIRECT_NA_DELETE);
 	}

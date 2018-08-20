@@ -1,9 +1,10 @@
-table{
-		width:100%;
+table {
+	table-layout: auto;
+	width: 100%;
+
 }
 
 table, th, td {
-
 	border: 1px solid black;
 }
 
@@ -13,4 +14,8 @@ tr:nth-child(even) {
 
 #shippedKnop {
 	float: right;
+}
+
+td.lowercase {
+	text-transform: lowercase;
 }

@@ -16,9 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 
 import be.vdab.toysforboys.enums.Status;
@@ -26,6 +26,7 @@ import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @Entity
 @Table(name = "orders")
+@NamedEntityGraph(name = "Order.metCustomer", attributeNodes = @NamedAttributeNode("customer"))
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,9 +44,9 @@ public class Order implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	private long version;
-	@ManyToMany
-	@JoinTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"), inverseJoinColumns = @JoinColumn(name = "productId"))
-	private Set<Product> producten = new LinkedHashSet<>();
+//	@ManyToMany
+//	@JoinTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"), inverseJoinColumns = @JoinColumn(name = "productId"))
+//	private Set<Product> producten = new LinkedHashSet<>();
 	@ElementCollection
 	@CollectionTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"))
 	private Set<Orderdetail> orderdetails;
@@ -105,19 +106,19 @@ public class Order implements Serializable {
 		this.customer = customer;
 	}
 
-	public boolean addProduct(Product product) {
-		return producten.add(product);
-	}
-
-	public boolean removeProduct(Product product) {
-		return producten.remove(product);
-
-	}
-
-	public Set<Product> getProducten() {
-		return Collections.unmodifiableSet(producten);
-
-	}
+//	public boolean addProduct(Product product) {
+//		return producten.add(product);
+//	}
+//
+//	public boolean removeProduct(Product product) {
+//		return producten.remove(product);
+//
+//	}
+//
+//	public Set<Product> getProducten() {
+//		return Collections.unmodifiableSet(producten);
+//
+//	}
 
 	public Set<Orderdetail> getOrderdetails() {
 		return Collections.unmodifiableSet(orderdetails);

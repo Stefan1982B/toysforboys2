@@ -118,8 +118,7 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 
 	@Test
 	public void setAsShipped() {
-		List<Long> ids = new ArrayList<>();
-		ids.add(idVanTestOrder());
+		Long ids[] = {idVanTestOrder()};
 		repository.setAsShipped(ids);
 		manager.flush();
 		Order order = repository.read(idVanTestOrder()).get();

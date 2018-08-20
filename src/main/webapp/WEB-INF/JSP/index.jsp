@@ -10,32 +10,43 @@
 </head>
 <body>
 	<h1>Unshipped orders</h1>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Ordered</th>
-			<th>Required</th>
-			<th>Customer</th>
-			<th>Comments</th>
-			<th>Status</th>
-			<th>Ship</th>
-		</tr>
-		<c:forEach var='order' items='${orders}'>
+	<form action='${url}' method='post' id='orderTabelFrom'>
+		<table>
 			<tr>
-				<td><spring:url var='url' value='/orders/{id}'>
-						<spring:param name='id' value='${order.id}' />
-					</spring:url><a href='${url}'>${order.id}</a></td>
-				<td>${order.orderDate}</td>
-				<td>${order.requiredDate}</td>
-				<td>${order.customer.name}</td>
-				<td>${order.comments}</td>
-				<td>${order.status}</td>
-				<td><input type='checkbox' name='shipped' value='${order.id}'></td>
+				<th>ID</th>
+				<th>Ordered</th>
+				<th>Required</th>
+				<th>Customer</th>
+				<th>Comments</th>
+				<th>Status</th>
+				<th>Ship</th>
 			</tr>
-		</c:forEach>
+			<c:forEach var='order' items='${orders}'>
+				<tr>
+					<td><spring:url var='url' value='/orders/{id}'>
+							<spring:param name='id' value='${order.id}' />
+						</spring:url><a href='${url}'>${order.id}</a></td>
+					<td>${order.orderDate}</td>
+					<td>${order.requiredDate}</td>
+					<td>${order.customer.name}</td>
+					<td>${order.comments}</td>
+					<td class="lowercase"><img src="images/${order.status}.png"
+						alt="${order.status}"> ${order.status}</td>
+					<td><input type='checkbox' name='shippedId'
+						value='${order.id}'></td>
+				</tr>
+			</c:forEach>
 
-	</table>
-	<input type='submit' value='Set as Shipped' id='shippedKnop'>
+		</table>
+		<input type='submit' value='Set as Shipped' id='shippedKnop'>
+	</form>
+
+
+	<script>
+		document.getElementById('orderTabelForm').onsubmit = function() {
+			document.getElementById('shippedKnop').disabled = true;
+		};
+	</script>
 
 </body>
 </html>
