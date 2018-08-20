@@ -38,7 +38,6 @@ import be.vdab.toysforboys.valueobjects.Orderdetail;
 @Sql("/insertProductline.sql")
 @Sql("/insertProduct.sql")
 @Sql("/insertOrder.sql")
-
 @Import(JpaOrderRepository.class)
 public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
@@ -126,24 +125,26 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 		assertEquals(status.SHIPPED, order.getStatus());
 		assertEquals(LocalDate.now(), order.getShippedDate());
 	}
-	
+
 	@Test
 	public void UpdateInOrderEnInStock() {
 		Order order = repository.read(idVanTestOrder()).get();
-		Set<Orderdetail>orderDetails = order.getOrderdetails();
-		List<Long>quantityInStocks = new ArrayList<>();
-		orderDetails.stream().forEach(orderDetail -> quantityInStocks.add(orderDetail.getProduct().getQuantityInStock()));
+		Set<Orderdetail> orderDetails = order.getOrderdetails();
+		List<Long> quantityInStocks = new ArrayList<>();
+		orderDetails.stream()
+				.forEach(orderDetail -> quantityInStocks.add(orderDetail.getProduct().getQuantityInStock()));
 		quantityInStocks.forEach(instock -> System.out.println(instock));
 		repository.UpdateInOrderEnInStock(idVanTestOrder());
 		manager.flush();
 		Order orderNieuw = repository.read(idVanTestOrder()).get();
-		Set<Orderdetail>orderDetailsNieuw = order.getOrderdetails();
-		List<Long>quantityInStocksNieuw = new ArrayList<>();
-		orderDetailsNieuw.stream().forEach(orderDetail -> quantityInStocksNieuw.add(orderDetail.getProduct().getQuantityInStock()));
+		Set<Orderdetail> orderDetailsNieuw = order.getOrderdetails();
+		List<Long> quantityInStocksNieuw = new ArrayList<>();
+		orderDetailsNieuw.stream()
+				.forEach(orderDetail -> quantityInStocksNieuw.add(orderDetail.getProduct().getQuantityInStock()));
 		quantityInStocksNieuw.forEach(aantal -> System.out.println(aantal));
-		List<Long>quantityOrdered = new ArrayList<>();
+		List<Long> quantityOrdered = new ArrayList<>();
 		orderDetailsNieuw.stream().forEach(orderDetail -> quantityOrdered.add(orderDetail.getQuantityOrdered()));
- 		for (int i = 0; i < quantityInStocks.size(); i++) {
+		for (int i = 0; i < quantityInStocks.size(); i++) {
 			assertEquals(0, quantityInStocks.get(i).compareTo(quantityInStocksNieuw.get(i) + quantityOrdered.get(i)));
 		}
 	}

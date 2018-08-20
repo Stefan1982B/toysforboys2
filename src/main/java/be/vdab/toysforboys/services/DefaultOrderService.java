@@ -1,5 +1,6 @@
 package be.vdab.toysforboys.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +12,12 @@ import be.vdab.toysforboys.entities.Order;
 import be.vdab.toysforboys.repositories.OrderRepository;
 
 @Service
-@Transactional(readOnly = true , isolation = Isolation.READ_COMMITTED) 
-class DefaultOrderService implements OrderService{
-	
+@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+class DefaultOrderService implements OrderService {
+
 	private final OrderRepository repository;
-	
-	DefaultOrderService(OrderRepository repository){
+
+	DefaultOrderService(OrderRepository repository) {
 		this.repository = repository;
 	}
 
@@ -31,9 +32,21 @@ class DefaultOrderService implements OrderService{
 	}
 
 	@Override
-	@Transactional(readOnly = false , isolation = Isolation.READ_COMMITTED) 
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
 	public int setAsShipped(Long[] ids) {
 		return repository.setAsShipped(ids);
 	}
 
+	@Override
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+	public void UpdateInOrderEnInStock(Long[] ids) {
+		List<Order> orders = new ArrayList<>();
+		for (long id : ids) {
+			orders.add(read(id).get());
+		}
+		for (Order order : orders) {
+			repository.UpdateInOrderEnInStock(order.getId());
+		}
+
+	}
 }

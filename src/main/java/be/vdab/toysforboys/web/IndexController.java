@@ -30,6 +30,7 @@ class IndexController {
 	ModelAndView setAsShipped(Long[] shippedId) {
 		if (shippedId != null) {
 			orderService.setAsShipped(shippedId);
+			orderService.UpdateInOrderEnInStock(shippedId);
 		}
 		return new ModelAndView(REDIRECT_NA_DELETE);
 	}

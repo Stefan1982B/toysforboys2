@@ -1,30 +1,35 @@
-package be.vdab.toysforboys.repositories;
-
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-
-import be.vdab.toysforboys.valueobjects.Orderdetail;
-
-class JpaProductRepository implements ProductRepository {
-
-	private final EntityManager manager;
-
-	JpaProductRepository(EntityManager manager) {
-		this.manager = manager;
-	}
-	
+//package be.vdab.toysforboys.repositories;
+//
+//import java.util.Optional;
+//
+//import javax.persistence.EntityManager;
+//
+//import org.springframework.stereotype.Repository;
+//
+//import be.vdab.toysforboys.entities.Product;
+//
+//@Repository
+//class JpaProductRepository implements ProductRepository {
+//
+//	private final EntityManager manager;
+//
+//	JpaProductRepository(EntityManager manager) {
+//		this.manager = manager;
+//	}
+//
 //	@Override
-//	public void UpdateInOrderEnInStock(long id) {
-//		Set<Orderdetail>orderdetails = read(id).get().getOrderdetails();
-//		for(Orderdetail orderdetail : orderdetails) {
-//			manager.createNamedQuery("Product.UpdateInOrderEnInStock")
-//			.setParameter("aantal", orderdetail.getQuantityOrdered())
-//			.executeUpdate();
-//		}
-//		orderdetails.stream()
-//		.forEach(orderdetail -> manager.createNamedQuery("Product.UpdateInOrderEnInStock")
-//				.setParameter("aantal", orderdetail.getQuantityOrdered())
-//				.executeUpdate());
-	}
-
+//	public Optional<Product> read(long id) {
+//		return Optional.ofNullable(manager.find(Product.class, id));
+//	}
+//
+//	@Override
+//	public int UpdateInOrderEnInStock(long id) {
+//		return manager.createNamedQuery("Product.UpdateInOrderEnInStock")
+//		.setParameter("aantal", 5l)
+//		.setParameter("id", id)
+//		.executeUpdate();
+//		
+//		
+//	}
+//
+//}

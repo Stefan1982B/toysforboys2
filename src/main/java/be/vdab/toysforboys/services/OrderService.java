@@ -9,4 +9,5 @@ public interface OrderService {
 	Optional<Order> read(long id);
 	List<Order> findAllButCancelledAndShipped();
 	int setAsShipped(Long ids[]);
+	void UpdateInOrderEnInStock(Long ids []);
 }
