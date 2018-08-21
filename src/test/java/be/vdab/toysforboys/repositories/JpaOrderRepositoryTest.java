@@ -132,11 +132,14 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 		orderDetails.stream().forEach(orderDetail -> productIds.add(orderDetail.getProduct().getId()));
 		long productId1 = productIds.get(0);
 		long productId2 = productIds.get(1);
-		long quantityInStock = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
+		long quantityInStockVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
 				Long.class, productId1);
-		long quantityInStock2 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
+		long quantityInStockVanProduct2 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
 				Long.class, productId2);
-		assertEquals(15, quantityInStock);
-		assertEquals(15, quantityInStock2);
+		long quantityInOrderVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInOrder from products where id=?",
+				Long.class, productId1);
+		assertEquals(15, quantityInStockVanProduct1);
+		assertEquals(14, quantityInStockVanProduct2);
+		assertEquals(6, quantityInOrderVanProduct1);
 	}
 }

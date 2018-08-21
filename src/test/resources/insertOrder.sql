@@ -4,4 +4,4 @@ values ('2019-01-01', '2019-02-01', '2019-02-01', 'testComment',
 insert into orderdetails(orderId, productId, quantityOrdered, priceEach)
 values((select id from orders where comments = 'testComment'), (select id from products where name = 'testProduct'), 5, 10);
 insert into orderdetails(orderId, productId, quantityOrdered, priceEach)
-values((select id from orders where comments = 'testComment'), (select id from products where name = 'testProduct2'), 6, 11);
+values((select id from orders where comments = 'testComment'), (select id from products where name = 'testProduct2'), 7, 11);
