@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "products")
@@ -27,6 +28,7 @@ public class Product implements Serializable {
 	private long quantityInStock;
 	private long quantityInOrder;
 	private BigDecimal buyPrice;
+	@Version
 	private long version;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "productlineId")

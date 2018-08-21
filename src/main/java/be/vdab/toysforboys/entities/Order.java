@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import be.vdab.toysforboys.enums.Status;
 import be.vdab.toysforboys.valueobjects.Orderdetail;
@@ -43,6 +44,7 @@ public class Order implements Serializable {
 	private Customer customer;
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Version
 	private long version;
 	@ElementCollection
 	@CollectionTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"))
