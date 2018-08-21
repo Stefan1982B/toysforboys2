@@ -44,9 +44,6 @@ public class Order implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	private long version;
-//	@ManyToMany
-//	@JoinTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"), inverseJoinColumns = @JoinColumn(name = "productId"))
-//	private Set<Product> producten = new LinkedHashSet<>();
 	@ElementCollection
 	@CollectionTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"))
 	private Set<Orderdetail> orderdetails;
@@ -105,20 +102,6 @@ public class Order implements Serializable {
 		}
 		this.customer = customer;
 	}
-
-//	public boolean addProduct(Product product) {
-//		return producten.add(product);
-//	}
-//
-//	public boolean removeProduct(Product product) {
-//		return producten.remove(product);
-//
-//	}
-//
-//	public Set<Product> getProducten() {
-//		return Collections.unmodifiableSet(producten);
-//
-//	}
 
 	public Set<Orderdetail> getOrderdetails() {
 		return Collections.unmodifiableSet(orderdetails);

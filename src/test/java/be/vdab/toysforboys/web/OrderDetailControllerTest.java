@@ -8,10 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import static org.mockito.Mockito.verify; 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,7 +36,11 @@ public class OrderDetailControllerTest {
 	@Before
 	public void before() {
 		when(dummyOrderService.read(1)).thenReturn(Optional.of(
-				new Order(1, LocalDate.of(2019,1,1), LocalDate.of(2019,2,2), LocalDate.of(2019,1,15), "testComment", new Customer("testCustomer1", 1, new Address("testStraat1", "testCity1", "testState1", "testPostalCode1"), new Country("testCountry1", 1) , Status.SHIPPED, 1))));
+				new Order(LocalDate.of(2019, 1, 1), LocalDate.of(2019, 2, 2), LocalDate.of(2019, 1, 15), "testComment",
+						new Customer("testCustomer1", 1,
+								new Address("testStraat1", "testCity1", "testState1", "testPostalCode1"),
+								new Country("testCountry1", 1)),
+						Status.SHIPPED, 1)));
 		controller = new OrderdetailController(dummyOrderService);
 	}
 
@@ -48,6 +53,6 @@ public class OrderDetailControllerTest {
 	@Test
 	public void OrderdetailControllerGeeftOrdersDoor() {
 		ModelAndView modelAndView = controller.orderDetail(1, redirectAttributes);
-		assertTrue(modelAndView.getModel().containsKey("totalPrijs"));
+		assertTrue(modelAndView.getModel().containsKey("totalePrijs"));
 	}
 }
