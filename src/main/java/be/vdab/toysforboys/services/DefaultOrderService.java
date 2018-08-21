@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import be.vdab.toysforboys.entities.Order;
+import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
 import be.vdab.toysforboys.repositories.OrderRepository;
 
 @Service
@@ -31,22 +33,38 @@ class DefaultOrderService implements OrderService {
 		return repository.findAllButCancelledAndShipped();
 	}
 
+//	@Override
+//	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+//	public int setAsShipped(Long[] ids) {
+//		return repository.setAsShipped(ids);
+//	}
+
 	@Override
-	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
-	public int setAsShipped(Long[] ids) {
-		return repository.setAsShipped(ids);
+	public int setAsShipped(Long id) {
+		return repository.setAsShipped(id);
 	}
 
 	@Override
 	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
-	public void UpdateInOrderEnInStock(Long[] ids) {
-		List<Order> orders = new ArrayList<>();
-		for (long id : ids) {
-			orders.add(read(id).get());
-		}
-		for (Order order : orders) {
-			repository.UpdateInOrderEnInStock(order.getId());
-		}
+	public void UpdateInOrderEnInStock(Long id) {
+		repository.UpdateInOrderEnInStock(id);
 
+	}
+//
+//	@Override
+//	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+//	public void setAsShippedEnUpdateStock(Long[] ids) {
+//		repository.setAsShipped(ids);
+//
+//		for (Long id : ids) {
+//			repository.UpdateInOrderEnInStock(id);
+//		}
+//	}
+
+	@Override
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void setAsShippedEnUpdateStock(Long id) {
+		repository.setAsShipped(id);
+		repository.UpdateInOrderEnInStock(id);
 	}
 }

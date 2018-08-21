@@ -8,6 +8,7 @@ import be.vdab.toysforboys.entities.Order;
 public interface OrderRepository {
 	Optional<Order> read(long id);
 	List<Order> findAllButCancelledAndShipped();
-	int setAsShipped(Long ids[]);
+	int setAsShipped(Long id);
+//	int setAsShipped(Long ids[]);
 	void UpdateInOrderEnInStock(Long id);
 }
