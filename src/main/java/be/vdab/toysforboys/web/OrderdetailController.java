@@ -1,7 +1,6 @@
 package be.vdab.toysforboys.web;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import be.vdab.toysforboys.entities.Order;
 import be.vdab.toysforboys.services.OrderService;
-import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @Controller
 @RequestMapping("orders")

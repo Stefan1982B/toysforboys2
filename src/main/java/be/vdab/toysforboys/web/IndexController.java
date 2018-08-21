@@ -36,7 +36,7 @@ class IndexController {
 			try {
 				orderService.setAsShippedEnUpdateStock(id);
 			} catch (OnvoldoendeVoorraadInStockException ex) {
-				String orderId = id.toString();
+				String orderId = String.valueOf(id);
 				mislukt = mislukt + "," + orderId;
 			}
 			redirectAttributes.addAttribute("aantalMislukt", mislukt);

@@ -10,6 +10,10 @@
 </head>
 <body>
 	<h1>Unshipped orders</h1>
+	<c:if test='${not empty param.aantalMislukt}'>
+		<h3>Shipping failed for order(s) ${param.aantalMislukt} : not enough stock</h3>
+	</c:if>
+
 	<form action='${url}' method='post' id='orderTabelFrom'>
 		<table>
 			<tr>

@@ -1,6 +1,5 @@
 package be.vdab.toysforboys.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import be.vdab.toysforboys.entities.Order;
-import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
 import be.vdab.toysforboys.repositories.OrderRepository;
 
 @Service
@@ -33,12 +31,6 @@ class DefaultOrderService implements OrderService {
 		return repository.findAllButCancelledAndShipped();
 	}
 
-//	@Override
-//	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
-//	public int setAsShipped(Long[] ids) {
-//		return repository.setAsShipped(ids);
-//	}
-
 	@Override
 	public int setAsShipped(Long id) {
 		return repository.setAsShipped(id);
@@ -50,16 +42,6 @@ class DefaultOrderService implements OrderService {
 		repository.UpdateInOrderEnInStock(id);
 
 	}
-//
-//	@Override
-//	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-//	public void setAsShippedEnUpdateStock(Long[] ids) {
-//		repository.setAsShipped(ids);
-//
-//		for (Long id : ids) {
-//			repository.UpdateInOrderEnInStock(id);
-//		}
-//	}
 
 	@Override
 	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
