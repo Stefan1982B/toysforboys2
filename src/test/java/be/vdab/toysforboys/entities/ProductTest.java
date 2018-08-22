@@ -1,6 +1,7 @@
 package be.vdab.toysforboys.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 import java.math.BigDecimal;
@@ -45,4 +46,22 @@ public class ProductTest {
 	public void gelijkeProductenGevenDezelfdeHashCode() {
 		assertEquals(product1.hashCode(), nogEensProduct1.hashCode());
 	}
+
+	@Test
+	public void updateQuantityInStockVermindertOrderedVanInStock() {
+		product1.updateQuantityInStock(1);
+		assertEquals(4, product1.getQuantityInStock());
+	}
+
+	@Test
+	public void updateQuantityInStockReturnsFalseAlsOnvoldoendeVoorraadInStock() {
+		assertFalse(product1.updateQuantityInStock(6));
+	}
+
+	@Test
+	public void updateQuantityInOrderVermindertOrderedVanInOrder() {
+		product1.updateQuantityInOrder(1);
+		assertEquals(2, product1.getQuantityInOrder());
+	}
+
 }

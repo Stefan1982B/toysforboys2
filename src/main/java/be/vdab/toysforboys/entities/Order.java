@@ -108,5 +108,13 @@ public class Order implements Serializable {
 	public Set<Orderdetail> getOrderdetails() {
 		return Collections.unmodifiableSet(orderdetails);
 	}
+	
+	public void updateStatusToShipped() {
+		status = Status.SHIPPED;
+	}
+	
+	public void updateShippedDate() {
+		shippedDate = LocalDate.now();
+	}
 
 }

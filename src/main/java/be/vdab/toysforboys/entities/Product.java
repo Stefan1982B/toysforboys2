@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
+
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -118,8 +120,17 @@ public class Product implements Serializable {
 		this.productline = productline;
 	}
 
-	
-	
-	
+	public void updateQuantityInStock(long quantityOrdered) {
+		boolean update = true;
+		if (quantityInStock < quantityOrdered) {
+			throw new OnvoldoendeVoorraadInStockException();
+		} else {
+			quantityInStock = quantityInStock - quantityOrdered;
+		}
+	}
 
+	public void updateQuantityInOrder(long quantityOrdered) {
+		quantityInOrder = quantityInOrder - quantityOrdered;
+
+	}
 }

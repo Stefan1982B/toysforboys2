@@ -62,6 +62,10 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 		return super.jdbcTemplate.queryForObject("select id from orders where comments = 'testComment'", Long.class);
 	}
 
+	private long idVanTestOrder2() {
+		return super.jdbcTemplate.queryForObject("select id from orders where comments = 'testComment2'", Long.class);
+	}
+
 	@Test
 	public void readOrder() {
 		Order order = repository.read(idVanTestOrder()).get();
@@ -117,29 +121,37 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	}
 
 	@Test
-	public void setAsShippedWijzigtStatusEnShippedDatum() {
-		repository.setAsShipped(idVanTestOrder());
-		Order order = repository.read(idVanTestOrder()).get();
-		assertEquals(status.SHIPPED, order.getStatus());
-		assertEquals(LocalDate.now(), order.getShippedDate());
+	public void findSelectedIdsReturnsDeOrdersVanDeSelectie() {
+		Long selectedIds[] = {idVanTestOrder(), idVanTestOrder2()};
+		List<Order>orders = repository.findSelectedIds(selectedIds);
+		assertEquals("testComment", orders.get(0).getComments());
+		assertEquals("testComment2", orders.get(1).getComments());
 	}
 
-	@Test
-	public void UpdateInOrderEnInStock() {
-		repository.UpdateInOrderEnInStock(idVanTestOrder());
-		Set<Orderdetail> orderDetails = repository.read(idVanTestOrder()).get().getOrderdetails();
-		List<Long> productIds = new ArrayList<>();
-		orderDetails.stream().forEach(orderDetail -> productIds.add(orderDetail.getProduct().getId()));
-		long productId1 = productIds.get(0);
-		long productId2 = productIds.get(1);
-		long quantityInStockVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
-				Long.class, productId1);
-		long quantityInStockVanProduct2 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
-				Long.class, productId2);
-		long quantityInOrderVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInOrder from products where id=?",
-				Long.class, productId1);
-		assertEquals(15, quantityInStockVanProduct1);
-		assertEquals(14, quantityInStockVanProduct2);
-		assertEquals(6, quantityInOrderVanProduct1);
-	}
+//	@Test
+//	public void setAsShippedWijzigtStatusEnShippedDatum() {
+//		repository.setAsShipped(idVanTestOrder());
+//		Order order = repository.read(idVanTestOrder()).get();
+//		assertEquals(status.SHIPPED, order.getStatus());
+//		assertEquals(LocalDate.now(), order.getShippedDate());
+//	}
+//
+//	@Test
+//	public void UpdateInOrderEnInStock() {
+//		repository.UpdateInOrderEnInStock(idVanTestOrder());
+//		Set<Orderdetail> orderDetails = repository.read(idVanTestOrder()).get().getOrderdetails();
+//		List<Long> productIds = new ArrayList<>();
+//		orderDetails.stream().forEach(orderDetail -> productIds.add(orderDetail.getProduct().getId()));
+//		long productId1 = productIds.get(0);
+//		long productId2 = productIds.get(1);
+//		long quantityInStockVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
+//				Long.class, productId1);
+//		long quantityInStockVanProduct2 = super.jdbcTemplate.queryForObject("select quantityInStock from products where id=?",
+//				Long.class, productId2);
+//		long quantityInOrderVanProduct1 = super.jdbcTemplate.queryForObject("select quantityInOrder from products where id=?",
+//				Long.class, productId1);
+//		assertEquals(15, quantityInStockVanProduct1);
+//		assertEquals(14, quantityInStockVanProduct2);
+//		assertEquals(6, quantityInOrderVanProduct1);
+//	}
 }

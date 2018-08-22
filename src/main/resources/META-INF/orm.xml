@@ -7,10 +7,14 @@
 	<named-query name='Order.findAllButCancelledAndShipped'>
 		<query> select o from Order o where o.status not in ('CANCELLED', 'SHIPPED') order by o.id  </query>
 	</named-query>
-	<named-query name='Order.setAsShipped'>
-		<query> Update Order o set o.status = 'SHIPPED', o.shippedDate = :date where o.id = :id </query>
+<!-- 	<named-query name='Order.setAsShipped'> -->
+<!-- 		<query> Update Order o set o.status = 'SHIPPED', o.shippedDate = :date where o.id = :id </query> -->
+<!-- 	</named-query> -->
+<!-- 	<named-query name='Product.UpdateInOrderEnInStock'> -->
+<!-- 		<query> Update Product p set p.quantityInStock = p.quantityInStock -:aantal, p.quantityInOrder = p.quantityInOrder -:aantal where p.quantityInStock &gt;= :aantal and p.quantityInOrder &gt;= :aantal and p.id = :id</query> -->
+<!-- 	</named-query> -->
+	<named-query name='Order.findSelectedIds'>
+		<query> select o from Order o where o.id in (:ids) </query>
 	</named-query>
-	<named-query name='Product.UpdateInOrderEnInStock'>
-		<query> Update Product p set p.quantityInStock = p.quantityInStock -:aantal, p.quantityInOrder = p.quantityInOrder -:aantal where p.quantityInStock &gt;= :aantal and p.quantityInOrder &gt;= :aantal and p.id = :id</query>
-	</named-query>
+
 </entity-mappings>
