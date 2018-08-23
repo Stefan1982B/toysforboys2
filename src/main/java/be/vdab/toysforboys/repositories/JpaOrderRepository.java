@@ -1,6 +1,5 @@
 package be.vdab.toysforboys.repositories;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +27,5 @@ class JpaOrderRepository implements OrderRepository {
 	public List<Order> findAllButCancelledAndShipped() {
 		return manager.createNamedQuery("Order.findAllButCancelledAndShipped", Order.class)
 				.setHint("javax.persistence.loadgraph", manager.createEntityGraph("Order.metCustomer")).getResultList();
-	}
-
-	@Override
-	public List<Order> findSelectedIds(Long[] selectedIds) {
-		return manager.createNamedQuery("Order.findSelectedIds", Order.class)
-				.setParameter("ids", Arrays.asList(selectedIds)).getResultList();
 	}
 }

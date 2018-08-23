@@ -58,10 +58,6 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 		return super.jdbcTemplate.queryForObject("select id from orders where comments = 'testComment'", Long.class);
 	}
 
-	private long idVanTestOrder2() {
-		return super.jdbcTemplate.queryForObject("select id from orders where comments = 'testComment2'", Long.class);
-	}
-
 	@Test
 	public void readOrder() {
 		Order order = repository.read(idVanTestOrder()).get();
@@ -114,13 +110,5 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 			assertTrue(order.getId() >= vorigId);
 			vorigId = order.getId();
 		}
-	}
-
-	@Test
-	public void findSelectedIdsReturnsDeOrdersVanDeSelectie() {
-		Long selectedIds[] = { idVanTestOrder(), idVanTestOrder2() };
-		List<Order> orders = repository.findSelectedIds(selectedIds);
-		assertEquals("testComment", orders.get(0).getComments());
-		assertEquals("testComment2", orders.get(1).getComments());
 	}
 }
