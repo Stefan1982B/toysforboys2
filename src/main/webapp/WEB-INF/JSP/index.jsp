@@ -4,14 +4,15 @@
 <!doctype html>
 <html lang='nl'>
 <head>
-<title>Orders</title>
-<meta name='viewport' content='width=device-width,initial-scale=1'>
-<link rel='stylesheet' href='<c:url value="/css/toysforboys.css"/>'>
+<c:import url='/WEB-INF/JSP/head.jsp'>
+	<c:param name='title' value="index" />
+</c:import>
 </head>
 <body>
 	<h1>Unshipped orders</h1>
 	<c:if test='${not empty param.aantalMislukt}'>
-		<h3>Shipping failed for order(s) ${param.aantalMislukt} : not enough stock</h3>
+		<h3 class='mislukt'>Shipping failed for order(s)
+			${param.aantalMislukt} not enough stock</h3>
 	</c:if>
 
 	<form action='${url}' method='post' id='orderTabelFrom'>

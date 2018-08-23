@@ -1,6 +1,7 @@
 package be.vdab.toysforboys.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,6 +41,15 @@ public class OrderTest {
 	public void updateDateShipped() {
 		order.updateShippedDate();
 		assertEquals(LocalDate.now(), order.getShippedDate());
+	}
+	
+	@Test
+	public void getOrderdetailsenRemoveOrderdetail() {
+		order.addOrderdetail(orderdetail);
+		assertTrue(order.getOrderdetails().contains(orderdetail));
+		order.removeOrderdetail(orderdetail);
+		assertTrue(order.getOrderdetails().isEmpty());
+		
 	}
 
 }

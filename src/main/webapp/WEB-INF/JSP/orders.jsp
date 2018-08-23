@@ -4,9 +4,9 @@
 <html lang='nl'>
 <head>
 <head>
-<title>Orderdetail</title>
-<meta name='viewport' content='width=device-width,initial-scale=1'>
-<link rel='stylesheet' href='<c:url value="/css/toysforboys.css"/>'>
+<c:import url='/WEB-INF/JSP/head.jsp'>
+	<c:param name='title' value="orders" />
+</c:import>
 </head>
 </head>
 <body>
@@ -46,15 +46,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+
 	<h2>value: ${totalePrijs}</h2>
 
-
-	<!-- 	<ul> -->
-	<%-- 		<c:forEach var="track" items="${album.tracks}"> --%>
-	<%-- 			<li>${track.naam}${track.tijd}</li> --%>
-	<%-- 		</c:forEach> --%>
-	<!-- 	</ul> -->
-	<%-- 	Totale tijd: ${album.tijd} --%>
 </body>
 </html>

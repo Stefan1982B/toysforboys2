@@ -121,7 +121,6 @@ public class Product implements Serializable {
 	}
 
 	public void updateQuantityInStock(long quantityOrdered) {
-		boolean update = true;
 		if (quantityInStock < quantityOrdered) {
 			throw new OnvoldoendeVoorraadInStockException();
 		} else {
@@ -131,6 +130,5 @@ public class Product implements Serializable {
 
 	public void updateQuantityInOrder(long quantityOrdered) {
 		quantityInOrder = quantityInOrder - quantityOrdered;
-
 	}
 }

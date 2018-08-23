@@ -1,18 +1,14 @@
 package be.vdab.toysforboys.repositories;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
 import be.vdab.toysforboys.entities.Order;
-import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
-import be.vdab.toysforboys.valueobjects.Orderdetail;
 
 @Repository
 class JpaOrderRepository implements OrderRepository {
@@ -37,29 +33,6 @@ class JpaOrderRepository implements OrderRepository {
 	@Override
 	public List<Order> findSelectedIds(Long[] selectedIds) {
 		return manager.createNamedQuery("Order.findSelectedIds", Order.class)
-				.setParameter("ids", Arrays.asList(selectedIds))
-				.getResultList();
+				.setParameter("ids", Arrays.asList(selectedIds)).getResultList();
 	}
-
-//	@Override
-//	public int setAsShipped(Long id) {
-//		return manager.createNamedQuery("Order.setAsShipped").setParameter("date", LocalDate.now())
-//				.setParameter("id", id)
-//				.setHint("javax.persistence.loadgraph", manager.createEntityGraph("Orderdetail.metProduct"))
-//				.executeUpdate();
-//	}
-//
-//	@Override
-//	public void UpdateInOrderEnInStock(Long id) {
-//		Set<Orderdetail> orderdetails = read(id).get().getOrderdetails();
-//		for (Orderdetail orderdetail : orderdetails) {				
-//			int update = manager.createNamedQuery("Product.UpdateInOrderEnInStock")
-//					.setParameter("aantal", orderdetail.getQuantityOrdered())
-//					.setParameter("id", orderdetail.getProduct().getId()).executeUpdate();
-//			if (update == 0) {
-//				throw new OnvoldoendeVoorraadInStockException();
-//			}
-//		}
-//	}
 }
-

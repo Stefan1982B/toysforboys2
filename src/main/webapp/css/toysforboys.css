@@ -19,3 +19,10 @@ tr:nth-child(even) {
 td.lowercase {
 	text-transform: lowercase;
 }
+h3.mislukt{
+	color: red;
+}
+h5{
+	font-family: sans-serif;
+	font-style:italic;
+}

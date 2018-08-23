@@ -1,7 +1,5 @@
 package be.vdab.toysforboys.web;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,36 +32,23 @@ class IndexController {
 	@PostMapping(params = "shippedId")
 	ModelAndView setAsShippedEnUpdateStock(Long[] shippedId, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView(REDIRECT_NA_DELETE);
-		String mislukt = "";
-		List<Order> orders = orderService.findSelectedIds(shippedId);
-		for (Order order : orders) {
-			try {
-				orderService.SetAsShippedAndUpdateStock(order);
-			} catch (OnvoldoendeVoorraadInStockException ex) {
-				String orderId = String.valueOf(order.getId());
-				mislukt = mislukt + "," + orderId;
-			}
-			
+		StringBuilder mislukt = new StringBuilder("");
+		for (Long id : shippedId) {
+			orderService.read(id).ifPresent(order -> {
+				try {
+					orderService.SetAsShippedAndUpdateStock(order);
+				} catch (OnvoldoendeVoorraadInStockException ex) {
+					String orderId = String.valueOf(order.getId());
+					mislukt.append(orderId + ",");
+				}
+			}); 
 		}
-		redirectAttributes.addAttribute("aantalMislukt", mislukt);
+		redirectAttributes.addAttribute("aantalMislukt", mislukt.toString());
 		return modelAndView;
 	}
-	}
-	
 
-//	@PostMapping(params = "shippedId")
-//	ModelAndView setAsShippedEnUpdateStock(List<Long> shippedId, RedirectAttributes redirectAttributes) {
-//		ModelAndView modelAndView = new ModelAndView(REDIRECT_NA_DELETE);
-//		String mislukt = "";
-//		for (Long id : shippedId) {
-//			try {
-//				orderService.setAsShippedEnUpdateStock(id);
-//			} catch (OnvoldoendeVoorraadInStockException ex) {
-//				String orderId = String.valueOf(id);
-//				mislukt = mislukt + "," + orderId;
-//			}
-//			redirectAttributes.addAttribute("aantalMislukt", mislukt);
-//		}
-//		return modelAndView;
-//
-//	}
+	@PostMapping()
+	ModelAndView setAsShippedZonderIds() {
+		return new ModelAndView(REDIRECT_NA_DELETE);
+	}
+}

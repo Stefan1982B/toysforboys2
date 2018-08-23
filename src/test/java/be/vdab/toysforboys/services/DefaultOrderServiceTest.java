@@ -1,24 +1,20 @@
 package be.vdab.toysforboys.services;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.assertj.core.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.stubbing.OngoingStubbing;
 
 import be.vdab.toysforboys.entities.Country;
 import be.vdab.toysforboys.entities.Customer;
 import be.vdab.toysforboys.entities.Order;
 import be.vdab.toysforboys.entities.Product;
 import be.vdab.toysforboys.entities.Productline;
+import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
 import be.vdab.toysforboys.enums.Status;
 import be.vdab.toysforboys.repositories.OrderRepository;
 import be.vdab.toysforboys.valueobjects.Address;
@@ -33,7 +29,6 @@ public class DefaultOrderServiceTest {
 	private Customer customer;
 	private Address address;
 	private Country country;
-	private Long selectedIds[];
 	private DefaultOrderService orderService;
 	
 	@Mock
@@ -52,21 +47,27 @@ public class DefaultOrderServiceTest {
 		customer = new Customer("testCustomer1", 1, address, country );
 		order1 = new Order(LocalDate.of(2019, 1, 1), LocalDate.of(2019, 2, 2), LocalDate.of(2019, 1, 15), "testComment", customer, Status.WAITING, 1);
 		order2 = new Order(LocalDate.of(2019, 8, 1), LocalDate.of(2019, 10, 2), LocalDate.of(2019, 9, 15), "testComment2", customer, Status.WAITING, 1);
-		selectedIds = new Long[]{1L,2L};
 		orderService = new DefaultOrderService(repository);
-//		List<Order>orders = new ArrayList<>(); 
-//		orders.add(order1);
-//		orders.add(order2);
-//		when((dummyOrderService.findSelectedIds(selectedIds)).thenReturn(orders));
 		}
 
 
 	@Test
 	public void SetAsShippedAndUpdateStock() {
+		order1.addOrderdetail(orderdetail1);
+		assertEquals(Status.WAITING, order1.getStatus());
 		orderService.SetAsShippedAndUpdateStock(order1);
 		assertEquals(Status.SHIPPED, order1.getStatus());
+		assertEquals(LocalDate.now(), order1.getShippedDate());
 		assertEquals(40, product1.getQuantityInStock());
 		assertEquals(20, product1.getQuantityInOrder());
 	}
+	
+	@Test(expected = OnvoldoendeVoorraadInStockException.class)
+	public void SetAsShippedAndUpdateStockBijOnvoldoendeVoorraad() {
+		order2.addOrderdetail(orderdetail2);
+		assertEquals(Status.WAITING, order2.getStatus());
+		orderService.SetAsShippedAndUpdateStock(order2);
+	}
+	
 
 }

@@ -1,13 +1,14 @@
 package be.vdab.toysforboys.entities;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import be.vdab.toysforboys.entities.exceptions.OnvoldoendeVoorraadInStockException;
 
 public class ProductTest {
 
@@ -53,9 +54,9 @@ public class ProductTest {
 		assertEquals(4, product1.getQuantityInStock());
 	}
 
-	@Test
+	@Test(expected = OnvoldoendeVoorraadInStockException.class)
 	public void updateQuantityInStockReturnsFalseAlsOnvoldoendeVoorraadInStock() {
-		assertFalse(product1.updateQuantityInStock(6));
+		product1.updateQuantityInStock(6);
 	}
 
 	@Test

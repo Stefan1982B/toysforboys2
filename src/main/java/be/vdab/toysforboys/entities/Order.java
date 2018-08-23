@@ -108,11 +108,22 @@ public class Order implements Serializable {
 	public Set<Orderdetail> getOrderdetails() {
 		return Collections.unmodifiableSet(orderdetails);
 	}
-	
+
+	public boolean addOrderdetail(Orderdetail orderdetail) {
+		if (orderdetail == null) {
+			throw new NullPointerException();
+		}
+		return orderdetails.add(orderdetail);
+	}
+
+	public boolean removeOrderdetail(Orderdetail orderdetail) {
+		return orderdetails.remove(orderdetail);
+	}
+
 	public void updateStatusToShipped() {
 		status = Status.SHIPPED;
 	}
-	
+
 	public void updateShippedDate() {
 		shippedDate = LocalDate.now();
 	}

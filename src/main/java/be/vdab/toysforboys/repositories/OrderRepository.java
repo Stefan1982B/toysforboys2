@@ -9,6 +9,4 @@ public interface OrderRepository {
 	Optional<Order> read(long id);
 	List<Order> findAllButCancelledAndShipped();
 	List<Order> findSelectedIds(Long[] selectedIds);
-//	int setAsShipped(Long id);
-//	void UpdateInOrderEnInStock(Long id);
 }
